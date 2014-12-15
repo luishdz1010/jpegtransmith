@@ -1,6 +1,6 @@
 {
-  "name": "gmsmith",
-  "description": "GM engine for spritesmith",
+  "name": "jpegtransmith",
+  "description": "jpegtran engine for spritesmith",
   "version": "0.4.5",
   "homepage": "https://github.com/twolfson/gmsmith",
   "author": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/twolfson/gmsmith.git"
+    "url": "git://github.com/sulibauista/gmsmith.git"
   },
   "bugs": {
     "url": "https://github.com/twolfson/gmsmith/issues"
