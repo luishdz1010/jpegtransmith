@@ -1,67 +1,88 @@
-# gmsmith [![Build status](https://travis-ci.org/twolfson/gmsmith.png?branch=master)](https://travis-ci.org/twolfson/gmsmith)
+# jpegtransmith
 
-[GM][gm] engine for [spritesmith][spritesmith].
+[jpegtran][jpegtran] engine for [spritesmith][spritesmith]. It uses jpegtran and [gm][gm] for lossless crop'n'drop, which allows it to
+improve the quality on the edges in each image of the sprite.
 
+[jpegtran]: http://jpegclub.org/jpegtran/
 [gm]: http://aheckmann.github.io/gm/
 [spritesmith]: https://github.com/Ensighten/spritesmith
 
+## Getting Started
+Install the module with: `npm install jpegtransmith`
+
+```js
+var
+  spritesmith = require('spritesmith'), // or if using grunt-spritesmith: require('grunt-spritesmith/node_modules/spritesmith/src/smith.js')
+  jpegtransmith = require('jpegtransmith');
+
+  spritesmith.addEngine('jpegtransmith', jpegtransmith);
+
+  spritesmith({src: sprites, engine: 'jpegtransmith'}, function handleResult (err, result) {
+    result.image; // Binary string representation of image
+    result.coordinates; // Object mapping filename to {x, y, width, height} of image
+    result.properties; // Object with metadata about spritesheet {width, height}, see Requirements for possible disparities
+  });
+```
+
 ## Requirements
-`gmsmith` depends on [gm](https://github.com/aheckmann/gm) which depends on [Graphics Magick](http://www.graphicsmagick.org/).
+`jpegtransmith` depends on:
+* [jpegtran][jpegtran], the download link is at the bottom in section `3`, the binary must be globally accessible
+* [gm](https://github.com/aheckmann/gm) which depends on [Graphics Magick](http://www.graphicsmagick.org/).
 
-I have found it is best to install from the site rather than through a package manager (e.g. `apt-get`) to get the latest as well as without transparency issues.
+For this to work, we use a virtual grid of 8x8 blocks. It requires your images dimensions to be multiple of 8, for the
+jpegtran -drop command to work correctly. If you specify a padding in spritesmith, it must also be a multiple of 8.
+If they images don't fit this description they will be used as-is but the individual sprite may be cropped and its generated dimensions
+ will be off by a few pixels (since they will be readjused to align to 8x8), to correct the second problem you can use this (on `grunt-spritesmith`):
 
-This module has been developed and tested against `1.3.17`.
+```js
+  var imdDataCache = {};
+
+  // Save the real img data for later use
+  jpegtransmith.imageDataMutator = function(imgData){
+    imgDataCache[imgData.file] = imgData;
+  }
+
+  // grunt config
+  // Restore the original width and height
+  sprite: {
+    my_sprite: {
+      // ...
+      cssVarMap: function(sprite){
+        var imgData = imgDataCache[sprite.source_image];
+        if(imgData){
+          sprite.width = imgData.realWidth;
+          sprite.height = imgData.realHeight;
+        }
+      }
+    }
+  }
+```
 
 > Alertnatively, you can use ImageMagick which is implicitly discovered if `gm` is not installed.
 > http://www.imagemagick.org/script/index.php
 
-## Getting Started
-Install the module with: `npm install gmsmith`
 
-```js
-// Convert images into gmsmith objects
-var images = ['img1.jpg', 'img2.png'];
-gmsmith.createImages(this.images, function handleImages (err, imgs) {
-  // Create a canvas to draw onto (200 pixels wide, 300 pixels tall)
-  gmsmith.createCanvas(200, 200, function (err, canvas) {
-    // Add each image at a specific location (upper left corner = {x, y})
-    var coordinatesArr = [{x: 0, y: 0}, {x: 50, y: 50}];
-    imgs.forEach(function (img, i) {
-      var coordinates = coordinatesArr[i];
-      canvas.addImage(img, coordinates.x, coordinates.y);
-    }, canvas);
-
-    // Export canvas to image
-    canvas['export']({format: 'png'}, function (err, result) {
-      result; // Binary string representing a PNG image of the canvas
-    });
-  });
-});
-```
 
 ## Documentation
 This module was built to the specification for all spritesmith modules.
 
+NOTE: This module fails most of the test in `spritesmith-engine-test` because it only works for JPEG images and it modifies the final size of the
+sprite by adjusting each image to a 8x8 grid.
+
 https://github.com/twolfson/spritesmith-engine-test
 
 ### canvas\['export'\](options, cb)
-These are options specific `gmsmith`
+These are options specific `jpegtranmsith`
 
 - options `Object`
-  - quality `Number` - Quality of output image on a scale from 0 to 100
+  - quality `Number`: 92 - Quality of output image on a scale from 0 to 100
+  - improvedEdgeSize `Number`: 8 - The number of pixels from the edge inwards to keep intact for the individual sprite images in the final sprite
+  - bg `String`: `black` - The background color used on the sprite
+  - samplingFactor `String`: 1x1,1x1,1x1
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint using [grunt](https://github.com/gruntjs/grunt) and test via `npm test`.
-
-## Donating
-Support this project and [others by twolfson][gittip] via [gittip][].
-
-[![Support via Gittip][gittip-badge]][gittip]
-
-[gittip-badge]: https://rawgithub.com/twolfson/gittip-badge/master/dist/gittip.png
-[gittip]: https://www.gittip.com/twolfson/
+Take care to maintain the existing coding style. Add unit tests for any new or changed functionality.
 
 ## License
-Copyright (c) 2013 Todd Wolfson
-
-Licensed under the MIT license.
+MIT
+Copyright (c) 2014 Luis Hernandez

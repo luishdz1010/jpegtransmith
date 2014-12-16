@@ -1,10 +1,10 @@
 // Load our dependencies
-var gmsmith = require('../lib/gmsmith');
+var jpegtransmith = require('../lib/jpegtransmith');
 var spritesmithEngineTest = require('spritesmith-engine-test');
 
 // Run our tests
 spritesmithEngineTest.run({
-  engine: gmsmith,
+  engine: jpegtransmith,
   engineName: 'jpegtransmith',
   options: {
     // If we are on Windows, skip over performance test (it cannot handle the long argument string)
