@@ -1,27 +1,26 @@
 {
   "name": "jpegtransmith",
   "description": "jpegtran engine for spritesmith",
-  "version": "0.4.5",
-  "homepage": "https://github.com/twolfson/gmsmith",
+  "version": "0.1.0",
+  "homepage": "https://github.com/sulibauista/jpegtransmith",
   "author": {
-    "name": "Todd Wolfson",
-    "email": "todd@twolfson.com",
-    "url": "http://twolfson.com/"
+    "name": "Luis Hernandez",
+    "email": "luis.hdz1010@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/sulibauista/gmsmith.git"
+    "url": "git://github.com/sulibauista/jpegtransmith.git"
   },
   "bugs": {
-    "url": "https://github.com/twolfson/gmsmith/issues"
+    "url": "https://github.com/sulibauista/jpegtransmith/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/twolfson/gmsmith/blob/master/LICENSE-MIT"
+      "url": "https://github.com/sulibauista/jpegtransmith/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "lib/gmsmith",
+  "main": "lib/jpegtransmith",
   "engines": {
     "node": ">= 0.8.0"
   },
@@ -31,6 +30,7 @@
   },
   "dependencies": {
     "async": "~0.2.7",
+    "debug": "^2.1.0",
     "gm": "~1.4.2",
     "lodash": "^2.4.1",
     "obj-extend": "~0.1.0",
@@ -47,6 +47,10 @@
     "phantomjs",
     "spritesmith",
     "image",
-    "layout"
+    "layout",
+    "jpegtran",
+    "jpg",
+    "jpeg",
+    "sprite"
   ]
 }
