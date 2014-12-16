@@ -1,7 +1,7 @@
 {
   "name": "jpegtransmith",
   "description": "jpegtran engine for spritesmith",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "homepage": "https://github.com/sulibauista/jpegtransmith",
   "author": {
     "name": "Luis Hernandez",
@@ -29,7 +29,7 @@
     "test": "mocha --timeout 60000"
   },
   "dependencies": {
-    "async": "~0.2.7",
+    "async": "^0.9.0",
     "debug": "^2.1.0",
     "gm": "~1.4.2",
     "lodash": "^2.4.1",
