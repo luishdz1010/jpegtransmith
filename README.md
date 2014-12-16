@@ -31,8 +31,8 @@ var
 
 For this to work, we use a virtual grid of 8x8 blocks. It requires your images dimensions to be multiple of 8, for the
 jpegtran -drop command to work correctly. If you specify a padding in spritesmith, it must also be a multiple of 8.
-If they images don't fit this description they will be used as-is but the individual sprite may be cropped and its generated dimensions
- will be off by a few pixels (since they will be readjused to align to 8x8), to correct the second problem you can use this (on `grunt-spritesmith`):
+If your images don't fit this description they will be used as-is but the individual images may be cropped and their generated dimensions
+ will be off by a few pixels (since they will be readjusted to align to 8x8), to correct the second problem you can use this (on `grunt-spritesmith`):
 
 ```js
   var imdDataCache = {};
