@@ -24,6 +24,8 @@ var
   });
 ```
 
+*NOTE*: This module is slow, mainly because of jpegtran usage. If you have any suggestion in how to improve speed, open an issue.
+
 ## Requirements
 `jpegtransmith` depends on:
 * [jpegtran][jpegtran], the download link is at the bottom in section `3`, the binary must be globally accessible
@@ -58,7 +60,7 @@ If your images don't fit this description they will be used as-is but the indivi
   }
 ```
 
-> Alertnatively, you can use ImageMagick which is implicitly discovered if `gm` is not installed.
+> Alternatively, you can use ImageMagick which is implicitly discovered if `gm` is not installed.
 > http://www.imagemagick.org/script/index.php
 
 
@@ -75,8 +77,8 @@ https://github.com/twolfson/spritesmith-engine-test
 These are options specific `jpegtranmsith`
 
 - options `Object`
-  - quality `Number`: 92 - Quality of output image on a scale from 0 to 100
-  - improvedEdgeSize `Number`: 8 - The number of pixels from the edge inwards to keep intact for the individual sprite images in the final sprite
+  - quality `Number`: 92 - Quality of each image on a scale from 0 to 100 (All image edges will be 100 quality)
+  - improvedEdgeSize `Number`: 8 - The number of pixels from the edge inwards to keep intact for the individual images in the final sprite
   - bg `String`: `black` - The background color used on the sprite
   - samplingFactor `String`: 1x1,1x1,1x1
 
