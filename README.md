@@ -77,7 +77,7 @@ https://github.com/twolfson/spritesmith-engine-test
 These are options specific `jpegtranmsith`
 
 - options `Object`
-  - quality `Number`: 92 - Quality of each image on a scale from 0 to 100 (All image edges will be 100 quality)
+  - quality `Number`: 92 - Quality of each image on a scale from 0 to 100 (All image edges will be in original quality)
   - improvedEdgeSize `Number`: 8 - The number of pixels from the edge inwards to keep intact for the individual images in the final sprite
   - bg `String`: `black` - The background color used on the sprite
   - samplingFactor `String`: 1x1,1x1,1x1
